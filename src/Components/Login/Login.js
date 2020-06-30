@@ -11,6 +11,14 @@ const login = (props) => {
     return(
         <div className={rowStyle}>
             <div className="col-6">
+                    <div className="form-group">
+                        <label>Username</label>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            
+                            />
+                    </div>
                 
                     <div className="form-group">
                         <label>Email</label>
