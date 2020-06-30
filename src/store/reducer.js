@@ -1,6 +1,8 @@
 import * as actionTypes from './actions';
 
 const initialState = {
+    username: "",
+    password: "",
     payload: {
         selectedAttorney: " ",
         numberOfHours: " ",
@@ -52,6 +54,32 @@ const reducer = (state = initialState, action) => {
         return {
             ...state,
             listData: action.val
+        }
+    }
+    else if(action.type === actionTypes.EMAIL_CHANGE) {
+        return {
+            ...state,
+            email: action.val
+        }
+    }
+    else if(action.type === actionTypes.PASSWORD_CHANGE) {
+        return {
+            ...state,
+            password: action.val
+        }
+    }
+    else if(action.type === actionTypes.SIGNUP_SUBMIT) {
+        return {
+            ...state,
+            email: "",
+            password: ""
+        }
+    }
+    else if(action.type === actionTypes.LOGIN_SUBMIT) {
+        return {
+            ...state,
+            email: "",
+            password: ""
         }
     }
     else {
