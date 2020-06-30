@@ -11,6 +11,7 @@ const taskManager = (props) => {
     return (
         <div className={rowStyle}>
             <div className="col-8">
+                <h3>Submit New Task</h3>
                 <form onSubmit={event => props.formSubmitHandler(event, props.payload)}>
                     <div className="form-group">
                         <label htmlFor="attorneys">Requesting Attorney</label>

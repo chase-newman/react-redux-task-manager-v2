@@ -110,6 +110,7 @@ export const signupAuth = (email, password) => {
             data: {
                 email: email,
                 password: password,
+                displayName: "Chase",
                 returnSecureToken: true
             }
         }).then(response => {

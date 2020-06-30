@@ -16,7 +16,7 @@ class TaskList extends Component {
         return(
             <div className={rowStyle}>
                 <div className="col-8">
-                    <h3>List of Tasks</h3>
+                    <h3>Task Status</h3>
                 </div>
             </div>
         );

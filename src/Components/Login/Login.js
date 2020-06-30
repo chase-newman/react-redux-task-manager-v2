@@ -11,7 +11,7 @@ const login = (props) => {
     return(
         <div className={rowStyle}>
             <div className="col-6">
-                <form>
+                
                     <div className="form-group">
                         <label>Email</label>
                         <input 
@@ -34,7 +34,7 @@ const login = (props) => {
                     <button 
                         className="btn btn-block btn-secondary"
                         onClick={() => props.onLoginSubmit(props.email,props.password)}>Login</button>
-                </form>
+               
             </div>
         </div>
     );
