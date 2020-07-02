@@ -4,9 +4,10 @@ const initialState = {
     username: "",
     password: "",
     payload: {
-        selectedAttorney: " ",
-        numberOfHours: " ",
+        selectedAttorney: "",
+        numberOfHours: "",
         noteText: "",
+        status: "In Progress"
     },
     listData: null
 }
@@ -31,6 +32,15 @@ const reducer = (state = initialState, action) => {
             }
         }
     }
+    else if(action.type === actionTypes.STATUS_SELECT) {
+        return {
+            ...state,
+            payload: {
+                ...state.payload,
+                status: action.val
+            }
+        }
+    }
     else if(action.type === actionTypes.NUMBER_SELECT) {
         return {
             ...state,
@@ -42,6 +52,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type === actionTypes.SUBMIT_FORM) {
         return {
+            ...state,
             payload: {
                 selectedAttorney: null,
                 numberOfHours: 0,
@@ -80,6 +91,17 @@ const reducer = (state = initialState, action) => {
             ...state,
             email: "",
             password: ""
+        }
+    }
+    else if(action.type === actionTypes.EDIT_TASK) {
+        return {
+            ...state
+        }
+    }
+    else if(action.type === actionTypes.DELETE_TASK) {
+        return {
+            ...state,
+            listData: action.val
         }
     }
     else {

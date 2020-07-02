@@ -1,3 +1,28 @@
 .Row {
     margin-top: 50px;
 }
+.listItem {
+    margin: 10px 0;
+    box-shadow: 5px 5px 5px gray;
+    padding: 25px;
+}
+.spanStyle {
+    display: block;
+}
+.Button {
+   border: none;
+   background: none;
+   outline: none;
+   font-size: 12px;
+   margin: 0;
+   padding: 5px;
+   
+}
+.Button:hover {
+    border: none;
+    outline: none;
+}
+.Button:active {
+    outline: none;
+    border: none;
+}

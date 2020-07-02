@@ -35,7 +35,7 @@ const taskManager = (props) => {
                             placeholder="..."
                             id="estimated-time"
                             type="number" 
-                            step="0.01"/>
+                            step="0.1"/>
                     </div>
                     <div className="form-group">
                         <textarea 
@@ -45,6 +45,17 @@ const taskManager = (props) => {
                             className="form-control"
                             value={props.noteText}
                             onChange={props.noteChangeHandler}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="status">Status</label>
+                        <select 
+                            className="form-control" 
+                            name="status" 
+                            id="staus"
+                            onChange={props.statusSelectHandler}>
+                            <option value="In-Progress">In Progress</option>
+                            <option value="Complete">Complete</option>
+                        </select>
                     </div>
                     <button 
                         type="submit" 
@@ -68,7 +79,8 @@ const mapDispatchToProps = dispatch => {
         noteChangeHandler: event => dispatch(actionCreators.noteChange(event)),
         formSubmitHandler: (event, attorney, task) => dispatch(actionCreators.postFormData(event, attorney, task)),
         attorneySelectHandler: event => dispatch(actionCreators.attorneySelect(event)),
-        numberSelectHandler: event => dispatch(actionCreators.numberSelect(event))
+        numberSelectHandler: event => dispatch(actionCreators.numberSelect(event)),
+        statusSelectHandler: event => dispatch(actionCreators.statusSelect(event))
     }
 }
 

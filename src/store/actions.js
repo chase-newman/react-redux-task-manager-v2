@@ -5,15 +5,28 @@ export const SUBMIT_FORM = "SUBMIT_FORM";
 export const LIST_DATA = "LIST_DATA";
 export const ATTORNEY_SELECT = "ATTORNEY_SELECT";
 export const NUMBER_SELECT = "NUMBER_SELECT";
+export const STATUS_SELECT = "STATUS_SELECT";
 export const EMAIL_CHANGE = "EMAIL_CHANGE";
 export const PASSWORD_CHANGE = "PASSWORD_CHANGE";
 export const SIGNUP_SUBMIT = "SIGNUP_SUBMIT";
 export const LOGIN_SUBMIT = "LOGIN_SUBMIT";
+export const EDIT_TASK = "EDIT_TASK";
+export const DELETE_TASK = "DELETE_TASK"
+
+
 
 export const attorneySelect = event => {
     console.log(event.target.value)
     return {
         type: ATTORNEY_SELECT,
+        val: event.target.value
+    }
+}
+
+export const statusSelect = event => {
+    console.log(event.target.value);
+    return {
+        type: STATUS_SELECT,
         val: event.target.value
     }
 }
@@ -42,7 +55,6 @@ export const submitForm = (event, value) => {
 
 export const postFormData = (event, payload) => {
     event.preventDefault();
-    console.log("[payload]" + payload)
     return dispatch => {
        axios({
         method: "post",
@@ -51,13 +63,22 @@ export const postFormData = (event, payload) => {
             data: payload
         }
        }).then(response => {
-           console.log(response);
            axios({
                method: "get",
                url: "https://burger-rebuild.firebaseio.com/tasks.json"
            }).then(response => {
-               console.log(response);
-               dispatch(submitForm(response.data))
+               
+               let data = response.data;
+               let taskArr = [];
+               for(let key in data) {
+                   taskArr.push({
+                       id: key,
+                       taskData: data[key]
+                   })
+               }
+               console.log(taskArr);
+               dispatch(submitForm(taskArr))
+               dispatch(listData(taskArr.reverse()))
            });
         });
     }
@@ -76,8 +97,17 @@ export const getListData = () => {
             method: "get",
             url: "https://burger-rebuild.firebaseio.com/tasks.json",
         }).then(response => {
-           console.log(response.data);
-           dispatch(listData(response.data));
+           
+           let data = response.data;
+           let taskArr = [];
+           for(let key in data) {
+               taskArr.push({
+                   id: key,
+                   taskData: data[key]
+               })
+           }
+           console.log(taskArr);
+           dispatch(listData(taskArr.reverse()));
         });
     }
 }
@@ -145,3 +175,49 @@ export const loginAuth = (email, password) => {
     }
 }
 
+
+export const editTask = (event) => {
+    console.log("Edit Task Clicked");
+    console.log(event.target.name)
+    return {
+        type: EDIT_TASK
+    }
+}
+
+
+export const deleteTask = (value) => {
+    return {
+        type: DELETE_TASK,
+        val: value
+    }
+}
+
+export const postDeleteTask = (event) => {
+    return dispatch => {
+        axios({
+            method: "put",
+            url: `https://burger-rebuild.firebaseio.com/tasks/${event.target.name}.json`,
+            data: {
+                data: null
+            }
+        }).then(response => {
+            console.log(response);
+            axios({
+               method: "get",
+               url: "https://burger-rebuild.firebaseio.com/tasks.json"
+           }).then(response => {
+               
+               let data = response.data;
+               let taskArr = [];
+               for(let key in data) {
+                   taskArr.push({
+                       id: key,
+                       taskData: data[key]
+                   })
+               }
+               console.log(taskArr);
+               dispatch(deleteTask(taskArr.reverse()))
+           });
+        });
+    }
+}
