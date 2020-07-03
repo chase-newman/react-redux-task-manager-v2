@@ -12,6 +12,7 @@ export const SIGNUP_SUBMIT = "SIGNUP_SUBMIT";
 export const LOGIN_SUBMIT = "LOGIN_SUBMIT";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK"
+export const SET_SELECT = "SET_SELECT";
 
 
 
@@ -46,7 +47,7 @@ export const noteChange = event => {
     }
 }
 
-export const submitForm = (event, value) => {
+export const submitForm = (value) => {
     return {
         type: SUBMIT_FORM,
         val: value
@@ -68,6 +69,8 @@ export const postFormData = (event, payload) => {
                url: "https://burger-rebuild.firebaseio.com/tasks.json"
            }).then(response => {
                
+               dispatch(submitForm(payload))
+               
                let data = response.data;
                let taskArr = [];
                for(let key in data) {
@@ -76,8 +79,8 @@ export const postFormData = (event, payload) => {
                        taskData: data[key]
                    })
                }
-               console.log(taskArr);
-               dispatch(submitForm(taskArr))
+             
+               
                dispatch(listData(taskArr.reverse()))
            });
         });
@@ -176,11 +179,42 @@ export const loginAuth = (email, password) => {
 }
 
 
-export const editTask = (event) => {
-    console.log("Edit Task Clicked");
-    console.log(event.target.name)
+export const editTask = (value) => {
+    console.log(value);
     return {
-        type: EDIT_TASK
+        type: EDIT_TASK,
+        val: value
+    }
+}
+
+export const postEditTask = (event) => {
+    
+    return dispatch => {
+        axios({
+            method: "put",
+            url: `https://burger-rebuild.firebaseio.com/tasks/${event.target.name}/data/status.json`,
+            data: {
+                data: "Complete"
+            }
+        }).then(response => {
+            console.log(response);
+            axios({
+              method: "get",
+              url: "https://burger-rebuild.firebaseio.com/tasks.json"
+          }).then(response => {
+               
+              let data = response.data;
+              let taskArr = [];
+              for(let key in data) {
+                  taskArr.push({
+                      id: key,
+                      taskData: data[key]
+                  })
+              }
+              console.log(taskArr);
+              dispatch(editTask(taskArr.reverse()))
+          });
+        });
     }
 }
 
@@ -219,5 +253,12 @@ export const postDeleteTask = (event) => {
                dispatch(deleteTask(taskArr.reverse()))
            });
         });
+    }
+}
+
+export const setSelect = (value) => {
+    return {
+        type: SET_SELECT,
+        val: value
     }
 }

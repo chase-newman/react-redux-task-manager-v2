@@ -32,21 +32,25 @@ class TaskList extends Component {
                         <span className={spanStyle}>
                             <strong>Status: </strong> 
                                 <span 
-                                    style={el.taskData.data.status === "In Progress" ? 
+                                    style={el.taskData.data.status.data === "In Progress" ? 
                                         {color: "red"} : {color: "green"}
-                                            }>{el.taskData.data.status}</span>
+                                            }>{el.taskData.data.status.data}</span>
                                 </span>
                         <span>
-                            <button 
-                                className={classes.Button} 
-                                style={{color: "orange"}}
-                                name={el.id}
-                                onClick={(event) => this.props.editTask(event)}>Edit</button>
                             <button 
                                 className={classes.Button} 
                                 style={{color: "red"}}
                                 name={el.id}
                                 onClick={(event) => this.props.deleteTask(event)}>Delete</button>
+                            {el.taskData.data.status.data === "In Progress" ? 
+                                <button 
+                                    className={classes.Button} 
+                                    style={{color: "orange"}}
+                                    name={el.id}
+                                    onClick={(event) => this.props.editTask(event)}>Task Complete</button>:
+                                null    
+                            }
+                            
                         </span>
                     </li>    
                 );
@@ -78,7 +82,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getData: () => dispatch(actionCreators.getListData()),
         deleteTask: (event) => dispatch(actionCreators.postDeleteTask(event)),
-        editTask: (event) => dispatch(actionCreators.editTask(event))
+        editTask: (event) => dispatch(actionCreators.postEditTask(event))
     }
 }
 

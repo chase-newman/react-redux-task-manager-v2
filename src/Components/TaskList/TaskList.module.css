@@ -9,13 +9,16 @@
 .spanStyle {
     display: block;
 }
+.deleteSpanStyle {
+    padding-left: 0;
+}
 .Button {
    border: none;
    background: none;
    outline: none;
    font-size: 12px;
    margin: 0;
-   padding: 5px;
+   padding: 5px 8px 5px 0;
    
 }
 .Button:hover {

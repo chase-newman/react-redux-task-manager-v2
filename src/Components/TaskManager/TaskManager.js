@@ -1,25 +1,36 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import classes from './TaskManager.module.css';
 import * as actionCreators from '../../store/actions';
 
 
-const taskManager = (props) => {
+class TaskManager extends Component {
+    
+    
+    componentDidMount() {
+        let statusEl = document.getElementById('status').value;
+        console.log(statusEl);
+        
+    }
+    
+    render() {
     
     let rowStyle = `row ${classes.Row}`
+    
+    
     
     return (
         <div className={rowStyle}>
             <div className="col-8">
                 <h3>Submit New Task</h3>
-                <form onSubmit={event => props.formSubmitHandler(event, props.payload)}>
+                <form onSubmit={event => this.props.formSubmitHandler(event, this.props.payload)}>
                     <div className="form-group">
                         <label htmlFor="attorneys">Requesting Attorney</label>
                         <select 
                             className="form-control" 
                             name="attorneys" 
                             id="attorneys"
-                            onChange={props.attorneySelectHandler}>
+                            onChange={this.props.attorneySelectHandler}>
                             <option>...</option>
                             <option value="Max Karpel">Max Karpel</option>
                             <option value="Fran Skoller">Fran Skoller</option>
@@ -30,7 +41,7 @@ const taskManager = (props) => {
                     <div className="form-group">
                         <label htmlFor="estimated-time">Time to Completion (Hours)</label>
                         <input
-                            onChange={props.numberSelectHandler}
+                            onChange={this.props.numberSelectHandler}
                             className="form-control"
                             placeholder="..."
                             id="estimated-time"
@@ -43,17 +54,18 @@ const taskManager = (props) => {
                             placeholder="Enter task notes here..."
                             id="notes-input"
                             className="form-control"
-                            value={props.noteText}
-                            onChange={props.noteChangeHandler}/>
+                            value={this.props.noteText}
+                            onChange={this.props.noteChangeHandler}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="status">Status</label>
                         <select 
                             className="form-control" 
                             name="status" 
-                            id="staus"
-                            onChange={props.statusSelectHandler}>
-                            <option value="In-Progress">In Progress</option>
+                            id="status"
+                            onChange={this.props.statusSelectHandler}
+                            >
+                            <option value="In-Progress" defaultValue>In Progress</option>
                             <option value="Complete">Complete</option>
                         </select>
                     </div>
@@ -63,7 +75,8 @@ const taskManager = (props) => {
                 </form>
             </div>
         </div>
-    );
+        );
+    }
 }
 
 const mapStateToProps = state => {
@@ -77,11 +90,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         noteChangeHandler: event => dispatch(actionCreators.noteChange(event)),
-        formSubmitHandler: (event, attorney, task) => dispatch(actionCreators.postFormData(event, attorney, task)),
+        formSubmitHandler: (event, payload) => dispatch(actionCreators.postFormData(event, payload)),
         attorneySelectHandler: event => dispatch(actionCreators.attorneySelect(event)),
         numberSelectHandler: event => dispatch(actionCreators.numberSelect(event)),
         statusSelectHandler: event => dispatch(actionCreators.statusSelect(event))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(taskManager);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskManager);

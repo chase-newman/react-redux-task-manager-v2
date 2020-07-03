@@ -7,7 +7,9 @@ const initialState = {
         selectedAttorney: "",
         numberOfHours: "",
         noteText: "",
-        status: "In Progress"
+        status: {
+            data: "In Progress"
+        }
     },
     listData: null
 }
@@ -37,7 +39,9 @@ const reducer = (state = initialState, action) => {
             ...state,
             payload: {
                 ...state.payload,
-                status: action.val
+                status: {
+                    data: action.val
+                }
             }
         }
     }
@@ -54,11 +58,10 @@ const reducer = (state = initialState, action) => {
         return {
             ...state,
             payload: {
-                selectedAttorney: null,
-                numberOfHours: 0,
-                noteText: "",
-            },
-            listData: action.val
+                ...state.payload,
+                noteText: ""
+                
+            }
         }
     }
     else if(action.type === actionTypes.LIST_DATA) {
@@ -95,13 +98,23 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type === actionTypes.EDIT_TASK) {
         return {
-            ...state
+            ...state,
+            listData: action.val
         }
     }
     else if(action.type === actionTypes.DELETE_TASK) {
         return {
             ...state,
             listData: action.val
+        }
+    }
+    else if(action.type === actionTypes.SET_SELECT) {
+        return {
+            ...state,
+            payload: {
+                ...state.payload,
+                status: action.val
+            }
         }
     }
     else {
