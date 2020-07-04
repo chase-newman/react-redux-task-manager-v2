@@ -8,7 +8,7 @@ const header = () => {
     
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <span className={navbarBrand} to="#" disabled>Task Manager</span>
+          <Link className={navbarBrand} to="/" >Task Manager</Link>
           <button 
             className="navbar-toggler" 
             type="button" 

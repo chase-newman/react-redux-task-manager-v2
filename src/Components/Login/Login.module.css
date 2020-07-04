@@ -1,3 +1,6 @@
 .Row {
-    margin-top: 50px;
+    margin-top: 25px;
+}
+.Col {
+    padding: 25px;
 }
