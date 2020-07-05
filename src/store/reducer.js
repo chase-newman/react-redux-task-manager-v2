@@ -1,6 +1,9 @@
 import * as actionTypes from './actions';
 
 const initialState = {
+    newTaskImg: "./assets/new-task.png",
+    taskListImg: "./assets/task-list.png",
+    auth: false,
     username: "",
     password: "",
     payload: {
@@ -9,7 +12,8 @@ const initialState = {
         noteText: "",
         status: {
             data: "In Progress"
-        }
+        },
+        user: ""
     },
     listData: null
 }
@@ -70,6 +74,12 @@ const reducer = (state = initialState, action) => {
             listData: action.val
         }
     }
+    else if(action.type === actionTypes.USERNAME_CHANGE) {
+        return {
+            ...state,
+            username: action.val
+        }
+    }
     else if(action.type === actionTypes.EMAIL_CHANGE) {
         return {
             ...state,
@@ -85,6 +95,7 @@ const reducer = (state = initialState, action) => {
     else if(action.type === actionTypes.SIGNUP_SUBMIT) {
         return {
             ...state,
+            auth: true,
             email: "",
             password: ""
         }
@@ -92,8 +103,13 @@ const reducer = (state = initialState, action) => {
     else if(action.type === actionTypes.LOGIN_SUBMIT) {
         return {
             ...state,
+            auth: true,
             email: "",
-            password: ""
+            password: "",
+            payload: {
+                ...state.payload,
+                user: action.val
+            }
         }
     }
     else if(action.type === actionTypes.EDIT_TASK) {
@@ -114,6 +130,21 @@ const reducer = (state = initialState, action) => {
             payload: {
                 ...state.payload,
                 status: action.val
+            }
+        }
+    }
+    else if(action.type === actionTypes.LOGOUT) {
+        return {
+            ...state,
+            auth: false,
+            payload: {
+                selectedAttorney: "",
+                numberOfHours: "",
+                noteText: "",
+                status: {
+                    data: "In Progress"
+                    },
+                user: ""
             }
         }
     }

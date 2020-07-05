@@ -6,6 +6,7 @@ export const LIST_DATA = "LIST_DATA";
 export const ATTORNEY_SELECT = "ATTORNEY_SELECT";
 export const NUMBER_SELECT = "NUMBER_SELECT";
 export const STATUS_SELECT = "STATUS_SELECT";
+export const USERNAME_CHANGE = "USERNAME_CHANGE";
 export const EMAIL_CHANGE = "EMAIL_CHANGE";
 export const PASSWORD_CHANGE = "PASSWORD_CHANGE";
 export const SIGNUP_SUBMIT = "SIGNUP_SUBMIT";
@@ -13,6 +14,7 @@ export const LOGIN_SUBMIT = "LOGIN_SUBMIT";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK"
 export const SET_SELECT = "SET_SELECT";
+export const LOGOUT = "LOGOUT";
 
 
 
@@ -115,6 +117,13 @@ export const getListData = () => {
     }
 }
 
+export const usernameChange = event => {
+    return {
+        type: USERNAME_CHANGE,
+        val: event.target.value
+    }
+}
+
 export const emailChange = event => {
     return {
         type: EMAIL_CHANGE,
@@ -129,13 +138,13 @@ export const passwordChange = event => {
     }
 }
 
-export const signupSubmit = (email, password) => {
+export const signupSubmit = () => {
     return {
         type: SIGNUP_SUBMIT
     }
 }
 
-export const signupAuth = (email, password) => {
+export const signupAuth = (email, password, username) => {
     return dispatch => {
         axios({
             method: "post",
@@ -143,20 +152,22 @@ export const signupAuth = (email, password) => {
             data: {
                 email: email,
                 password: password,
-                displayName: "Chase",
+                displayName: username,
                 returnSecureToken: true
             }
         }).then(response => {
             console.log(response);
             dispatch(signupSubmit());
-        })
+        }).catch(error => {
+            console.log(error); 
+        });
     }
 }
 
-export const loginSubmit = (email, password) => {
-    console.log(email, password)
+export const loginSubmit = (displayName) => {
     return {
-        type: LOGIN_SUBMIT
+        type: LOGIN_SUBMIT,
+        val: displayName
     }
 }
 
@@ -172,9 +183,11 @@ export const loginAuth = (email, password) => {
                 returnSecureToken: true
             }
         }).then(response => {
-            console.log(response);
-            dispatch(loginSubmit());
-        })
+            console.log(response.data.displayName);
+            dispatch(loginSubmit(response.data.displayName));
+        }).catch(error => {
+            console.log(error); 
+        });
     }
 }
 
@@ -260,5 +273,12 @@ export const setSelect = (value) => {
     return {
         type: SET_SELECT,
         val: value
+    }
+}
+
+export const logout = () => {
+    console.log("Logout clicked")
+    return {
+        type: LOGOUT
     }
 }

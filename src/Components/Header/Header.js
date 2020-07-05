@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions';
 import classes from './Header.module.css';
 
-const header = () => {
+const header = (props) => {
     
     let navbarBrand = `navbar-brand ${classes.Header}`;
+    let logoutBtnStyle = `nav-item nav-link ${classes.Button}`
     
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,7 +24,11 @@ const header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="nav-item nav-link active" to="/login">Login <span className="sr-only">(current)</span></Link>
+              {!props.user ? <Link className="nav-item nav-link" to="/login">Login</Link> : 
+              <Link 
+                className={logoutBtnStyle}
+                onClick={props.logoutHandler}
+                >Logout</Link>}
               <Link className="nav-item nav-link" to="/task-manager">Task List</Link>
             </div>
           </div>
@@ -31,5 +38,17 @@ const header = () => {
     
 }
 
+const mapStateToProps = state => {
+  return {
+    user: state.payload.user
+  }
+}
 
-export default header;
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutHandler: () => dispatch(actionCreators.logout)
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

@@ -37,6 +37,9 @@ class TaskList extends Component {
                                             }>{el.taskData.data.status.data}</span>
                                 </span>
                         <span>
+                        <span className={spanStyle}>
+                            <strong>User: </strong> {el.taskData.data.user}
+                        </span>
                             <button 
                                 className={classes.Button} 
                                 style={{color: "red"}}
@@ -60,12 +63,12 @@ class TaskList extends Component {
         
         return(
             <div className={rowStyle}>
-                <div className="col-8">
-                    <h3>Task Status</h3>
+                {this.props.auth ? <div className="col-8">
+                    <h3>Task Board</h3>
                     <ul className="list-group">
                         {tasks}
                     </ul>
-                </div>
+                </div> : null}
             </div>
             );
         }
@@ -74,6 +77,7 @@ class TaskList extends Component {
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth,
         listData: state.listData
     }
 }

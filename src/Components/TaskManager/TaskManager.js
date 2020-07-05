@@ -8,9 +8,10 @@ class TaskManager extends Component {
     
     
     componentDidMount() {
-        let statusEl = document.getElementById('status').value;
-        console.log(statusEl);
-        
+        if(this.props.auth) {
+            let statusEl = document.getElementById('status').value;
+            console.log(statusEl);
+        }
     }
     
     render() {
@@ -18,10 +19,9 @@ class TaskManager extends Component {
     let rowStyle = `row ${classes.Row}`
     
     
-    
     return (
         <div className={rowStyle}>
-            <div className="col-8">
+            {this.props.auth ? <div className="col-8">
                 <h3>Submit New Task</h3>
                 <form onSubmit={event => this.props.formSubmitHandler(event, this.props.payload)}>
                     <div className="form-group">
@@ -73,7 +73,11 @@ class TaskManager extends Component {
                         type="submit" 
                         className="btn btn-block btn-outline-success">Submit</button>
                 </form>
-            </div>
+            </div> : 
+                <div className="col-8">
+                    <h1>Please sign up or login to use Task Manager...</h1>
+                </div>
+            }
         </div>
         );
     }
@@ -81,6 +85,7 @@ class TaskManager extends Component {
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth,
         selectedAttorney: state.payload.selectedAttorney,
         noteText: state.payload.noteText,
         payload: state.payload

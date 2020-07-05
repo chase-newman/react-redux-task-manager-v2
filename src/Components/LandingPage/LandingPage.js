@@ -1,6 +1,7 @@
 import React from 'react';
 import Aux from '../hoc/Aux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classes from './Landing.module.css';
 
 
@@ -13,9 +14,14 @@ const landingPage = (props) => {
                 <div className="col-6">
                     <h1>Task Manager</h1>
                     <p>Organize your tasks and workflow with Task Manager</p>
+                    {!props.auth ?
                     <Link 
                         className="btn btn-success btn-block"
-                        to="/login">Sign Up or Login to use Task Manager</Link>
+                        to="/login">Sign Up or Login to use Task Manager</Link> :
+                     <Link 
+                        className="btn btn-success btn-block"
+                        to="/task-manager">Go to Task Manager</Link>   
+                    }
                 </div>
             </div>
             <div className={rowStyle}>
@@ -37,7 +43,15 @@ const landingPage = (props) => {
 };
 
 
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+        newTaskImg: state.newTaskImg,
+        taskListImg: state.taskListImg
+    }
+}
 
-export default landingPage;
+
+export default connect(mapStateToProps)(landingPage);
 
 

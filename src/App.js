@@ -24,7 +24,7 @@ class App extends Component {
             path="/" 
             exact 
             render={() => {
-              return <LandingPage newTaskImg={this.state.newTaskImg} taskListImg={this.state.taskListImg}/>
+              return <LandingPage />
             }} />
           <Route path="/login" component={Login} />
           <Route path="/task-manager" >
