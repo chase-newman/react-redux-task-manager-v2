@@ -38,6 +38,7 @@ const login = (props) => {
                             <input 
                                 type="password" 
                                 className="form-control"
+                                placeholder="Must be at least 6 characters..."
                                 onChange={props.onPasswordChange}
                                 />
                         </div>

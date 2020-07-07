@@ -192,7 +192,8 @@ export const loginAuth = (email, password) => {
             console.log(response.data.displayName);
             dispatch(loginSubmit(response.data.displayName));
         }).catch(error => {
-            console.log(error); 
+            console.log(error);
+            alert(error);
         });
     }
 }

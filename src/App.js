@@ -9,23 +9,12 @@ import Header from './Components/Header/Header';
 import './App.css';
 
 class App extends Component {
-  state = {
-    newTaskImg: "./assets/new-task.png",
-    taskListImg: "./assets/task-list.png"
-  }
-  
-  
   render() {
     return (
       <Aux>
         <Header />
         <div className="container">
-          <Route 
-            path="/" 
-            exact 
-            render={() => {
-              return <LandingPage />
-            }} />
+          <Route path="/" exact component={LandingPage} />
           <Route path="/login" component={Login} />
           <Route path="/task-manager" >
             <TaskManager />
