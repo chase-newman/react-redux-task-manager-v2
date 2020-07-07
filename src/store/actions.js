@@ -11,10 +11,10 @@ export const EMAIL_CHANGE = "EMAIL_CHANGE";
 export const PASSWORD_CHANGE = "PASSWORD_CHANGE";
 export const SIGNUP_SUBMIT = "SIGNUP_SUBMIT";
 export const LOGIN_SUBMIT = "LOGIN_SUBMIT";
+export const LOGOUT = "LOGOUT";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK"
 export const SET_SELECT = "SET_SELECT";
-export const LOGOUT = "LOGOUT";
 
 
 
@@ -81,8 +81,6 @@ export const postFormData = (event, payload) => {
                        taskData: data[key]
                    })
                }
-             
-               
                dispatch(listData(taskArr.reverse()))
            });
         });
@@ -135,6 +133,13 @@ export const passwordChange = event => {
     return {
         type: PASSWORD_CHANGE,
         val: event.target.value
+    }
+}
+
+export const logout = () => {
+    console.log("Logout button was clicked");
+    return {
+        type: LOGOUT
     }
 }
 
@@ -273,12 +278,5 @@ export const setSelect = (value) => {
     return {
         type: SET_SELECT,
         val: value
-    }
-}
-
-export const logout = () => {
-    console.log("Logout clicked")
-    return {
-        type: LOGOUT
     }
 }

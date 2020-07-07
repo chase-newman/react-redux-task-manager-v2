@@ -112,6 +112,18 @@ const reducer = (state = initialState, action) => {
             }
         }
     }
+    else if(action.type === actionTypes.LOGOUT) {
+        return {
+            ...state,
+            auth: null,
+            email: "",
+            password: "",
+            payload: {
+                ...state.payload,
+                user: null
+            }
+        }
+    }
     else if(action.type === actionTypes.EDIT_TASK) {
         return {
             ...state,
@@ -130,21 +142,6 @@ const reducer = (state = initialState, action) => {
             payload: {
                 ...state.payload,
                 status: action.val
-            }
-        }
-    }
-    else if(action.type === actionTypes.LOGOUT) {
-        return {
-            ...state,
-            auth: false,
-            payload: {
-                selectedAttorney: "",
-                numberOfHours: "",
-                noteText: "",
-                status: {
-                    data: "In Progress"
-                    },
-                user: ""
             }
         }
     }

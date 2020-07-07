@@ -25,7 +25,7 @@ const header = (props) => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className={navbarStyle}>
-              {!props.user ? <Link className="nav-item nav-link" to="/login">Login</Link> : 
+              {!props.auth ? <Link className="nav-item nav-link" to="/login">Login</Link> : 
               <button 
                 className={logoutBtnStyle}
                 onClick={props.logoutHandler}
@@ -40,14 +40,14 @@ const header = (props) => {
 }
 
 const mapStateToProps = state => {
-  return {
-    user: state.payload.user
-  }
+    return {
+      auth: state.auth
+    }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    logoutHandler: () => dispatch(actionCreators.logout)
+      logoutHandler: () => dispatch(actionCreators.logout())
   }
 }
 
