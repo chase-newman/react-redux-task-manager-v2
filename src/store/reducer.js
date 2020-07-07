@@ -97,7 +97,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             auth: true,
             email: "",
-            password: ""
+            password: "",
+            payload: {
+                ...state.payload,
+                user: action.val
+            }
         }
     }
     else if(action.type === actionTypes.LOGIN_SUBMIT) {

@@ -143,9 +143,10 @@ export const logout = () => {
     }
 }
 
-export const signupSubmit = () => {
+export const signupSubmit = (value) => {
     return {
-        type: SIGNUP_SUBMIT
+        type: SIGNUP_SUBMIT,
+        val: value
     }
 }
 
@@ -162,7 +163,7 @@ export const signupAuth = (email, password, username) => {
             }
         }).then(response => {
             console.log(response);
-            dispatch(signupSubmit());
+            dispatch(signupSubmit(response.data.displayName));
         }).catch(error => {
             console.log(error); 
         });
