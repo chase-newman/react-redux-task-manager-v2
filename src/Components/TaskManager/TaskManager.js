@@ -21,7 +21,8 @@ class TaskManager extends Component {
     
     return (
         <div className={rowStyle}>
-            {this.props.auth ? <div className="col-8">
+            {this.props.auth ? <div className="col-lg-8 col-sm-12">
+                <h1 className={classes.Heading}>Hello, {this.props.user}</h1>
                 <h3>Submit New Task</h3>
                 <form onSubmit={event => this.props.formSubmitHandler(event, this.props.payload)}>
                     <div className="form-group">
@@ -74,7 +75,7 @@ class TaskManager extends Component {
                         className="btn btn-block btn-outline-success">Submit</button>
                 </form>
             </div> : 
-                <div className="col-8">
+                <div className="col-lg-8 col-sm-12">
                     <h1>Please sign up or login to use Task Manager...</h1>
                 </div>
             }
@@ -88,7 +89,8 @@ const mapStateToProps = state => {
         auth: state.auth,
         selectedAttorney: state.payload.selectedAttorney,
         noteText: state.payload.noteText,
-        payload: state.payload
+        payload: state.payload,
+        user: state.payload.user
     }
 }
 

@@ -63,7 +63,7 @@ class TaskList extends Component {
         
         return(
             <div className={rowStyle}>
-                {this.props.auth ? <div className="col-8">
+                {this.props.auth ? <div className="col-lg-8 col-sm-12">
                     <h3>Task Board</h3>
                     <ul className="list-group">
                         {tasks}

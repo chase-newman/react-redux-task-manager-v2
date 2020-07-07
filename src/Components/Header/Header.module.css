@@ -8,3 +8,6 @@
     color: red !important;
     background: none;
 }
+.Nav {
+    align-items: flex-start;
+}

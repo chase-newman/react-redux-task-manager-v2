@@ -8,10 +8,11 @@ import classes from './Landing.module.css';
 const landingPage = (props) => {
     
     let rowStyle = `row justify-content-center ${classes.Row}`;
+    let imgStyle = `img-fluid ${classes.IMG}`;
     return(
         <Aux>
            <div className={rowStyle}>
-                <div className="col-6">
+                <div className="col-lg-6 col-sm-10">
                     <h1>Task Manager</h1>
                     <p>Organize your tasks and workflow with Task Manager</p>
                     {!props.auth ?
@@ -28,13 +29,13 @@ const landingPage = (props) => {
                 <div className="col-lg-6 col-sm-10">
                     <img
                         src={props.taskListImg}
-                        className="img-fluid" 
+                        className={imgStyle} 
                         alt="task-screenshot"/>
                 </div>
                 <div className="col-lg-6 col-sm-10">
                     <img
                         src={props.newTaskImg}
-                        className="img-fluid" 
+                        className={imgStyle} 
                         alt="task-screenshot"/>
                 </div>
             </div>

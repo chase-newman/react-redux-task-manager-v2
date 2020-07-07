@@ -1,3 +1,8 @@
 .Row {
     margin-top: 50px;
 }
+.Heading {
+    font-family: 'Lobster', cursive;
+    color: #898c8a;
+    margin-bottom: 50px;
+}
