@@ -22,7 +22,7 @@ class TaskManager extends Component {
     return (
         <div className={rowStyle}>
             {this.props.auth ? <div className="col-lg-8 col-sm-12">
-                <h1 className={classes.Heading}>Hello, {this.props.user}</h1>
+                <h4 className={classes.Heading}>Hello, {this.props.user} <i className="fas fa-user"></i></h4>
                 <h3>Submit New Task</h3>
                 <form onSubmit={event => this.props.formSubmitHandler(event, this.props.payload)}>
                     <div className="form-group">

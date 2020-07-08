@@ -2,7 +2,9 @@
     margin-top: 50px;
 }
 .Heading {
-    font-family: 'Lobster', cursive;
     color: #898c8a;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 5px 5px 5px gray;
 }

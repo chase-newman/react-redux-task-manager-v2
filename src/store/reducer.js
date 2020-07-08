@@ -4,8 +4,11 @@ const initialState = {
     newTaskImg: "./assets/new-task.png",
     taskListImg: "./assets/task-list.png",
     auth: false,
-    username: "",
-    password: "",
+    authPayload: {
+        username: "",
+        email: "",
+        password: ""
+    },
     payload: {
         selectedAttorney: "",
         numberOfHours: "",
@@ -15,7 +18,9 @@ const initialState = {
         },
         user: ""
     },
-    listData: null
+    listData: null,
+    error: false,
+    errMessage: "Oops, something went wrong. Please try again... "
 }
 
 
@@ -77,19 +82,28 @@ const reducer = (state = initialState, action) => {
     else if(action.type === actionTypes.USERNAME_CHANGE) {
         return {
             ...state,
-            username: action.val
+            authPayload: {
+                ...state.authPayload, 
+                username: action.val
+            }
         }
     }
     else if(action.type === actionTypes.EMAIL_CHANGE) {
         return {
             ...state,
-            email: action.val
+            authPayload: {
+                ...state.authPayload,
+                email: action.val
+            }
         }
     }
     else if(action.type === actionTypes.PASSWORD_CHANGE) {
         return {
             ...state,
-            password: action.val
+            authPayload: {
+                ...state.authPayload,
+                password: action.val
+            }
         }
     }
     else if(action.type === actionTypes.SIGNUP_SUBMIT) {
@@ -108,8 +122,11 @@ const reducer = (state = initialState, action) => {
         return {
             ...state,
             auth: true,
-            email: "",
-            password: "",
+            authPayload: {
+                email: "",
+                password: "",
+                username: ""
+            },
             payload: {
                 ...state.payload,
                 user: action.val
@@ -120,8 +137,11 @@ const reducer = (state = initialState, action) => {
         return {
             ...state,
             auth: null,
-            email: "",
-            password: "",
+            authPayload: {
+                email: "",
+                password: "",
+                username: ""
+            },
             payload: {
                 ...state.payload,
                 user: null
@@ -147,6 +167,18 @@ const reducer = (state = initialState, action) => {
                 ...state.payload,
                 status: action.val
             }
+        }
+    }
+    else if(action.type === actionTypes.MODAL_CLOSE) {
+        return {
+            ...state,
+            error: false
+        }
+    }
+    else if(action.type === actionTypes.AUTH_ERROR) {
+        return {
+            ...state,
+            error: true
         }
     }
     else {

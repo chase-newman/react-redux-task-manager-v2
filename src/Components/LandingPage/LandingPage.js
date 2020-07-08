@@ -3,6 +3,7 @@ import Aux from '../hoc/Aux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Landing.module.css';
+import undraw from '../../undraw.svg';
 
 
 const landingPage = (props) => {
@@ -12,9 +13,9 @@ const landingPage = (props) => {
     return(
         <Aux>
            <div className={rowStyle}>
-                <div className="col-lg-6 col-sm-10">
+                <div className="col-lg-4 col-md-4 col-sm-12">
                     <h1>Task Manager</h1>
-                    <p>Organize your tasks and workflow with Task Manager</p>
+                    <p>Organize your teams tasks and workflow with Task Manager</p>
                     {!props.auth ?
                     <Link 
                         className="btn btn-success btn-block"
@@ -24,17 +25,9 @@ const landingPage = (props) => {
                         to="/task-manager">Go to Task Manager</Link>   
                     }
                 </div>
-            </div>
-            <div className={rowStyle}>
-                <div className="col-lg-6 col-sm-10">
+                <div className="col-lg-8 col-md-8 col-sm-12">
                     <img
-                        src={props.taskListImg}
-                        className={imgStyle} 
-                        alt="task-screenshot"/>
-                </div>
-                <div className="col-lg-6 col-sm-10">
-                    <img
-                        src={props.newTaskImg}
+                        src={undraw}
                         className={imgStyle} 
                         alt="task-screenshot"/>
                 </div>

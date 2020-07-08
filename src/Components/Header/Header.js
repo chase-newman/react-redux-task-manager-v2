@@ -11,7 +11,7 @@ const header = (props) => {
     let navbarStyle = `navbar-nav ${classes.Nav}`;
     
     return(
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
           <Link className={navbarBrand} to="/" >Task Manager</Link>
           <button 
             className="navbar-toggler" 

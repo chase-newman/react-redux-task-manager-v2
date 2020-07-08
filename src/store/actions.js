@@ -15,6 +15,8 @@ export const LOGOUT = "LOGOUT";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK"
 export const SET_SELECT = "SET_SELECT";
+export const MODAL_CLOSE = "MODAL_CLOSE";
+export const AUTH_ERROR = "AUTH_ERROR";
 
 
 
@@ -143,6 +145,12 @@ export const logout = () => {
     }
 }
 
+export const authError = () => {
+    return {
+        type: AUTH_ERROR
+    }
+}
+
 export const signupSubmit = (value) => {
     return {
         type: SIGNUP_SUBMIT,
@@ -150,22 +158,24 @@ export const signupSubmit = (value) => {
     }
 }
 
-export const signupAuth = (email, password, username) => {
+export const signupAuth = (event, payload) => {
+    event.preventDefault();
     return dispatch => {
         axios({
             method: "post",
             url: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCxqIdZzLfbDNTTppgTA3oK31w93XoFl4Q",
             data: {
-                email: email,
-                password: password,
-                displayName: username,
+                email: payload.email,
+                password: payload.password,
+                displayName: payload.username,
                 returnSecureToken: true
             }
         }).then(response => {
             console.log(response);
             dispatch(signupSubmit(response.data.displayName));
         }).catch(error => {
-            console.log(error); 
+            console.log(error);
+            dispatch(authError())
         });
     }
 }
@@ -177,15 +187,15 @@ export const loginSubmit = (displayName) => {
     }
 }
 
-export const loginAuth = (email, password) => {
-    console.log(email, password)
+export const loginAuth = (event, payload) => {
+    event.preventDefault();
     return dispatch => {
         axios({
             method: "post",
             url: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCxqIdZzLfbDNTTppgTA3oK31w93XoFl4Q",
             data: {
-                email: email,
-                password: password,
+                email: payload.email,
+                password: payload.password,
                 returnSecureToken: true
             }
         }).then(response => {
@@ -193,7 +203,7 @@ export const loginAuth = (email, password) => {
             dispatch(loginSubmit(response.data.displayName));
         }).catch(error => {
             console.log(error);
-            alert(error);
+            dispatch(authError());
         });
     }
 }
@@ -280,5 +290,11 @@ export const setSelect = (value) => {
     return {
         type: SET_SELECT,
         val: value
+    }
+}
+
+export const modalClose = () => {
+    return {
+        type: MODAL_CLOSE
     }
 }
