@@ -181,6 +181,16 @@ const reducer = (state = initialState, action) => {
             error: true
         }
     }
+    else if(action.type === actionTypes.CHECK_AUTH) {
+        return {
+            ...state,
+            auth: true,
+            payload: {
+                ...state.payload,
+                user: action.val
+            }
+        }
+    }
     else {
       return state;  
     }

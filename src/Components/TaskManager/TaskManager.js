@@ -26,7 +26,7 @@ class TaskManager extends Component {
                 <h3>Submit New Task</h3>
                 <form onSubmit={event => this.props.formSubmitHandler(event, this.props.payload)}>
                     <div className="form-group">
-                        <label htmlFor="attorneys">Requesting Attorney</label>
+                        <label htmlFor="supervisor">Requesting Supervisor</label>
                         <select 
                             className="form-control" 
                             name="attorneys" 

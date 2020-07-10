@@ -17,6 +17,7 @@ export const DELETE_TASK = "DELETE_TASK"
 export const SET_SELECT = "SET_SELECT";
 export const MODAL_CLOSE = "MODAL_CLOSE";
 export const AUTH_ERROR = "AUTH_ERROR";
+export const CHECK_AUTH = "CHECK_AUTH";
 
 
 
@@ -139,7 +140,8 @@ export const passwordChange = event => {
 }
 
 export const logout = () => {
-    console.log("Logout button was clicked");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     return {
         type: LOGOUT
     }
@@ -172,6 +174,8 @@ export const signupAuth = (event, payload) => {
             }
         }).then(response => {
             console.log(response);
+            localStorage.setItem("token", response.data.idToken);
+            localStorage.setItem("user", response.data.displayName);
             dispatch(signupSubmit(response.data.displayName));
         }).catch(error => {
             console.log(error);
@@ -200,6 +204,8 @@ export const loginAuth = (event, payload) => {
             }
         }).then(response => {
             console.log(response.data.displayName);
+            localStorage.setItem("token", response.data.idToken);
+            localStorage.setItem("user", response.data.displayName);
             dispatch(loginSubmit(response.data.displayName));
         }).catch(error => {
             console.log(error);
@@ -296,5 +302,13 @@ export const setSelect = (value) => {
 export const modalClose = () => {
     return {
         type: MODAL_CLOSE
+    }
+}
+
+export const checkAuth = () => {
+    let user = localStorage.user
+    return {
+        type: CHECK_AUTH,
+        val: user
     }
 }

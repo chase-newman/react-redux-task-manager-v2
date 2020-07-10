@@ -6,9 +6,21 @@ import TaskList from './Components/TaskList/TaskList';
 import LandingPage from './Components/LandingPage/LandingPage';
 import { Route } from 'react-router-dom';
 import Header from './Components/Header/Header';
+import { connect } from 'react-redux';
+import * as actionCreators from './store/actions';
 import './App.css';
 
 class App extends Component {
+  
+  componentDidMount() {
+    if(localStorage.token) {
+      console.log("[current user token]: " + localStorage.token);
+      this.props.onCheckAuth();
+    } else {
+      console.log("No current user");
+    }
+  }
+  
   render() {
     return (
       <Aux>
@@ -26,4 +38,10 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onCheckAuth: () => dispatch(actionCreators.checkAuth())
+  }
+}
+export default connect(null, mapDispatchToProps)(App);

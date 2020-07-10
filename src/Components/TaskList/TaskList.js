@@ -24,7 +24,7 @@ class TaskList extends Component {
                             <strong>Task:</strong> {el.taskData.data.noteText}
                         </span>
                         <span className={spanStyle}>
-                            <strong>Attorney: </strong> {el.taskData.data.selectedAttorney} 
+                            <strong>Supervisor: </strong> {el.taskData.data.selectedAttorney} 
                         </span>
                         <span className={spanStyle}>
                             <strong>Time: </strong> {el.taskData.data.numberOfHours} Hour(s)
