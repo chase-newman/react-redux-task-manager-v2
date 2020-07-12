@@ -7,12 +7,11 @@ import * as actionCreators from '../../store/actions';
 class TaskManager extends Component {
     
     
-    componentDidMount() {
-        if(this.props.auth) {
-            let statusEl = document.getElementById('status').value;
-            console.log(statusEl);
-        }
-    }
+    // componentDidMount() {
+    //     if(this.props.auth) {
+    //         let statusEl = document.getElementById('status').value;
+    //     }
+    // }
     
     render() {
     

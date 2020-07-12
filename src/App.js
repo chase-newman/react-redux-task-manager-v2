@@ -14,11 +14,8 @@ class App extends Component {
   
   componentDidMount() {
     if(localStorage.token) {
-      console.log("[current user token]: " + localStorage.token);
       this.props.onCheckAuth();
-    } else {
-      console.log("No current user");
-    }
+    } 
   }
   
   render() {

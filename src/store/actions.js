@@ -22,7 +22,6 @@ export const CHECK_AUTH = "CHECK_AUTH";
 
 
 export const attorneySelect = event => {
-    console.log(event.target.value)
     return {
         type: ATTORNEY_SELECT,
         val: event.target.value
@@ -30,7 +29,6 @@ export const attorneySelect = event => {
 }
 
 export const statusSelect = event => {
-    console.log(event.target.value);
     return {
         type: STATUS_SELECT,
         val: event.target.value
@@ -38,7 +36,6 @@ export const statusSelect = event => {
 }
 
 export const numberSelect = event => {
-    console.log(event.target.value)
     return {
         type: NUMBER_SELECT,
         val: event.target.value
@@ -60,18 +57,19 @@ export const submitForm = (value) => {
 }
 
 export const postFormData = (event, payload) => {
+    let token = localStorage.getItem("token");
     event.preventDefault();
     return dispatch => {
        axios({
         method: "post",
-        url: "https://burger-rebuild.firebaseio.com/tasks.json",
+        url: "https://burger-rebuild.firebaseio.com/tasks.json?auth=" + token,
         data: {
             data: payload
         }
        }).then(response => {
            axios({
                method: "get",
-               url: "https://burger-rebuild.firebaseio.com/tasks.json"
+               url: "https://burger-rebuild.firebaseio.com/tasks.json?auth=" + token
            }).then(response => {
                
                dispatch(submitForm(payload))
@@ -98,10 +96,11 @@ export const listData = (value) => {
 }
 
 export const getListData = () => {
+    let token = localStorage.getItem("token");
     return dispatch => {
         axios({
             method: "get",
-            url: "https://burger-rebuild.firebaseio.com/tasks.json",
+            url: "https://burger-rebuild.firebaseio.com/tasks.json?auth=" + token,
         }).then(response => {
            
            let data = response.data;
@@ -112,7 +111,7 @@ export const getListData = () => {
                    taskData: data[key]
                })
            }
-           console.log(taskArr);
+          
            dispatch(listData(taskArr.reverse()));
         });
     }
@@ -173,7 +172,6 @@ export const signupAuth = (event, payload) => {
                 returnSecureToken: true
             }
         }).then(response => {
-            console.log(response);
             localStorage.setItem("token", response.data.idToken);
             localStorage.setItem("user", response.data.displayName);
             dispatch(signupSubmit(response.data.displayName));
@@ -203,7 +201,6 @@ export const loginAuth = (event, payload) => {
                 returnSecureToken: true
             }
         }).then(response => {
-            console.log(response.data.displayName);
             localStorage.setItem("token", response.data.idToken);
             localStorage.setItem("user", response.data.displayName);
             dispatch(loginSubmit(response.data.displayName));
@@ -216,7 +213,6 @@ export const loginAuth = (event, payload) => {
 
 
 export const editTask = (value) => {
-    console.log(value);
     return {
         type: EDIT_TASK,
         val: value
@@ -224,19 +220,18 @@ export const editTask = (value) => {
 }
 
 export const postEditTask = (event) => {
-    
+    let token = localStorage.getItem("token");
     return dispatch => {
         axios({
             method: "put",
-            url: `https://burger-rebuild.firebaseio.com/tasks/${event.target.name}/data/status.json`,
+            url: `https://burger-rebuild.firebaseio.com/tasks/${event.target.name}/data/status.json?auth=${token}`,
             data: {
                 data: "Complete"
             }
         }).then(response => {
-            console.log(response);
             axios({
               method: "get",
-              url: "https://burger-rebuild.firebaseio.com/tasks.json"
+              url: "https://burger-rebuild.firebaseio.com/tasks.json?auth=" + token
           }).then(response => {
                
               let data = response.data;
@@ -247,7 +242,6 @@ export const postEditTask = (event) => {
                       taskData: data[key]
                   })
               }
-              console.log(taskArr);
               dispatch(editTask(taskArr.reverse()))
           });
         });
@@ -263,18 +257,18 @@ export const deleteTask = (value) => {
 }
 
 export const postDeleteTask = (event) => {
+    let token = localStorage.getItem("token");
     return dispatch => {
         axios({
             method: "put",
-            url: `https://burger-rebuild.firebaseio.com/tasks/${event.target.name}.json`,
+            url: `https://burger-rebuild.firebaseio.com/tasks/${event.target.name}.json?auth=${token}`,
             data: {
                 data: null
             }
         }).then(response => {
-            console.log(response);
             axios({
                method: "get",
-               url: "https://burger-rebuild.firebaseio.com/tasks.json"
+               url: "https://burger-rebuild.firebaseio.com/tasks.json?auth=" + token
            }).then(response => {
                
                let data = response.data;
@@ -285,7 +279,7 @@ export const postDeleteTask = (event) => {
                        taskData: data[key]
                    })
                }
-               console.log(taskArr);
+               
                dispatch(deleteTask(taskArr.reverse()))
            });
         });
